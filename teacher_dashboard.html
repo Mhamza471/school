@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="brand-header">
+            <div class="brand-title">MH Softwares</div>
+        </div>
+        <h2>Welcome, <span id="teacherNameDisplay"></span></h2>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div class="nav-bar">
+            <button class="nav-btn active" id="btnTeacherInfo">Info</button>
+            <button class="nav-btn" id="btnTeacherSalary">Salary</button>
+            <button class="nav-btn" id="btnTeacherAttendance">Attendance</button>
+            <button class="nav-btn" id="btnTeacherTimetable">Timetable</button>
+        </div>
+        <div class="section active" id="sectionTeacherInfo">
+            <h3><span class="icon-blue">👤</span> Info</h3>
+            <div id="teacherInfo"></div>
+        </div>
+        <div class="section" id="sectionTeacherSalary">
+            <h3><span class="icon-blue">💰</span> Salary & Financials</h3>
+            <div id="teacherSalary"></div>
+            <div id="teacherAdvance"></div>
+            <div id="teacherDeductions"></div>
+            <div id="teacherAllowance"></div>
+        </div>
+        <div class="section" id="sectionTeacherAttendance">
+            <h3><span class="icon-orange">🕒</span> Attendance</h3>
+            <div id="teacherAttendanceTable"></div>
+        </div>
+        <div class="section" id="sectionTeacherTimetable">
+            <h3><span class="icon-green">📅</span> Timetable</h3>
+            <div id="teacherTimetable"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+    // Robust JS for teacher dashboard
+    (function() {
+        if (!window.location.pathname.endsWith("teacher_dashboard.html")) return;
+        const teacherId = localStorage.getItem("teacherId");
+        const teacherName = localStorage.getItem("teacherName");
+        const nameSpan = document.getElementById("teacherNameDisplay");
+        if (nameSpan) nameSpan.textContent = teacherName || "Teacher";
+        function logout() {
+            localStorage.clear();
+            window.location = "index.html";
+        }
+        window.logout = logout;
+        // Use DB_URL from app.js if available, else fallback
+        const DB_URL = window.DB_URL || "https://muhammadhamza-8f6f1-default-rtdb.firebaseio.com/schoolData.json";
+        fetch(DB_URL)
+            .then(res => res.json())
+            .then(data => {
+                const teachers = data.teachers || [];
+                const teacher = teachers.find(t => String(t.ID) === teacherId);
+                if (!teacher) {
+                    const salaryDiv = document.getElementById("teacherSalary");
+                    if (salaryDiv) salaryDiv.innerHTML = "Teacher not found.";
+                    return;
+                }
+                const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+                set("teacherSalary", `<b>Salary:</b> Rs. ${teacher.Salary?.toLocaleString() || 0}`);
+                set("teacherAdvance", `<b>Advance:</b> Rs. ${teacher.Advance?.toLocaleString() || 0}`);
+                set("teacherDeductions", `<b>Deductions:</b> Rs. ${teacher.Deductions?.toLocaleString() || 0}`);
+                set("teacherAllowance", `<b>Allowance:</b> Rs. ${teacher.Allowance?.toLocaleString() || 0}`);
+                const teacherAttendance = (data.teacherAttendance || []).filter(a => String(a.TeacherID) === teacherId);
+                set("teacherAttendanceTable", arrayToTable(teacherAttendance, ["Date","MorningStatus","AfternoonStatus","Time"]));
+                const timetable = (data.classSubjects || []).filter(s => String(s.TeacherID) === teacherId);
+                set("teacherTimetable", arrayToTable(timetable, ["ClassName","SubjectName","Day","StartTime","EndTime","Section"]));
+            })
+            .catch(() => {
+                const salaryDiv = document.getElementById("teacherSalary");
+                if (salaryDiv) salaryDiv.innerHTML = "Unable to load data.";
+            });
+        function arrayToTable(arr, cols) {
+            if (!arr || arr.length === 0) return "<i>No records found.</i>";
+            let html = '<table><tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
+            for (const row of arr) {
+                html += '<tr>' + cols.map(c => `<td>${row[c] ?? ''}</td>`).join('') + '</tr>';
+            }
+            html += '</table>';
+            return html;
+        }
+    })();
+    </script>
+</body>
+</html>

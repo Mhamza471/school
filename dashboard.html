@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="brand-header">
+            <img src="https://scontent.fisb4-1.fna.fbcdn.net/v/t39.30808-6/494059813_122127985868753816_1103038120093102199_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeExXUNCBrdDri4dN4C9vOEAxW_lQt5NQiLFb-VC3k1CIk_3J0lT25o2h6e5-tg99fBsCkJooX1qNdfLgpIZGvl5&_nc_ohc=OpLrfTKamn4Q7kNvwEobRZR&_nc_oc=AdltiOoOsFXXm_KIU7ZhU5tH9csm6bP8V9_UQBgZuKV-WTafkuMCfPMyod81xg7zSC8&_nc_zt=23&_nc_ht=scontent.fisb4-1.fna&_nc_gid=qICFDkgJB8TcqQyjYGJLlg&oh=00_AfJyVFJpA77VLFJUFHOmFk0YYqBWQ-aZWUeOHJM3b4Lo6Q&oe=682CE25E" alt="MH Softwares Logo" class="brand-logo">
+            <div class="brand-title">MH Softwares</div>
+        </div>
+        <h2>Welcome, <span id="studentNameDisplay"></span></h2>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div class="nav-bar">
+            <button class="nav-btn" id="btnInfo">Info</button>
+            <button class="nav-btn" id="btnAttendance">Attendance</button>
+            <button class="nav-btn" id="btnFee">Fee Record</button>
+            <button class="nav-btn" id="btnExam">Exam Record</button>
+            <button class="nav-btn" id="btnHomework">Homework</button>
+            <button class="nav-btn active" id="btnSummary">Summary</button>
+        </div>
+        <div id="studentSection">
+            <div class="section" id="sectionInfo">
+                <h3>Student Info</h3>
+                <div id="studentInfo"></div>
+            </div>
+            <div class="section" id="sectionAttendance">
+                <h3>Attendance</h3>
+                <div id="attendanceTable"></div>
+            </div>
+            <div class="section" id="sectionFee">
+                <h3>Fee Records</h3>
+                <div id="feeTable"></div>
+            </div>
+            <div class="section" id="sectionExam">
+                <h3>Exam Records</h3>
+                <div class="term-bar">
+                    <button class="term-btn active" id="termFirst">First Term</button>
+                    <button class="term-btn" id="termSecond">Second Term</button>
+                    <button class="term-btn" id="termFinal">Final Term</button>
+                </div>
+                <div id="examStats"></div>
+                <div id="examTable"></div>
+            </div>
+            <div class="section" id="sectionHomework">
+                <h3>Homework</h3>
+                <div id="homeworkTable"></div>
+            </div>
+            <div class="section" id="sectionSummary">
+                <h3>Summary</h3>
+                <div id="summaryContent"></div>
+            </div>
+        </div>
+        <div id="teacherSection">
+            <div class="section active" id="sectionTeacherSalary">
+                <h3>Salary & Advance</h3>
+                <div id="teacherSalary"></div>
+                <div id="teacherAdvance"></div>
+            </div>
+            <div class="section" id="sectionTeacherAttendance">
+                <h3>Attendance & Deductions</h3>
+                <div id="teacherAttendanceTable"></div>
+            </div>
+            <div class="section" id="sectionTeacherTimetable">
+                <h3>Timetable</h3>
+                <div id="teacherTimetable"></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

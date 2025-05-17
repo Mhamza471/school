@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Portal Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="brand-header">
+            <img src="https://scontent.fisb4-1.fna.fbcdn.net/v/t39.30808-6/494059813_122127985868753816_1103038120093102199_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeExXUNCBrdDri4dN4C9vOEAxW_lQt5NQiLFb-VC3k1CIk_3J0lT25o2h6e5-tg99fBsCkJooX1qNdfLgpIZGvl5&_nc_ohc=OpLrfTKamn4Q7kNvwEobRZR&_nc_oc=AdltiOoOsFXXm_KIU7ZhU5tH9csm6bP8V9_UQBgZuKV-WTafkuMCfPMyod81xg7zSC8&_nc_zt=23&_nc_ht=scontent.fisb4-1.fna&_nc_gid=qICFDkgJB8TcqQyjYGJLlg&oh=00_AfJyVFJpA77VLFJUFHOmFk0YYqBWQ-aZWUeOHJM3b4Lo6Q&oe=682CE25E" alt="MH Softwares Logo" class="brand-logo">
+            <div class="brand-title">MH Softwares</div>
+        </div>
+        <div class="login-toggle">
+            <button id="studentLoginBtn" class="toggle-btn active">Student Login</button>
+            <button id="teacherLoginBtn" class="toggle-btn">Teacher Login</button>
+        </div>
+        <form id="loginForm">
+            <input type="text" id="studentName" placeholder="Student Name or ID" required><br>
+            <input type="text" id="fatherCnic" placeholder="Father CNIC" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <form id="teacherLoginForm">
+            <input type="text" id="teacherId" placeholder="Teacher ID" required><br>
+            <input type="text" id="teacherCnic" placeholder="Teacher CNIC" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginError" class="error"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
